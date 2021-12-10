@@ -11,6 +11,11 @@ from .forms import RoomForm
 # ]
 
 
+def loginPage(request):
+    context = {}
+    return render(request, 'base/login_register.html', context)
+
+
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
     rooms = Room.objects.filter(
@@ -20,8 +25,9 @@ def home(request):
     )
 
     topics = Topic.objects.all()
+    room_count = rooms.count()
 
-    context = {'rooms': rooms, 'topics': topics}
+    context = {'rooms': rooms, 'topics': topics, 'room_count': room_count}
     return render(request, 'base/home.html', context)
 
 
